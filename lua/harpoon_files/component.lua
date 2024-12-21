@@ -50,7 +50,7 @@ M.harpoon_files = function()
             table.insert(
                 result,
                 string.format(
-                    '%s[%s %s %s]%s',
+                    '%s[%s %s%s]%s',
                     opts.separator_left,
                     opts.icon,
                     id_str,
@@ -62,7 +62,7 @@ M.harpoon_files = function()
             table.insert(
                 result,
                 string.format(
-                    '%s %s %s %s %s',
+                    '%s %s %s%s %s',
                     opts.separator_left,
                     opts.icon,
                     id_str,
