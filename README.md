@@ -1,6 +1,5 @@
 # harpoon-files.nvim
-<img width="1178" alt="image" src="https://github.com/user-attachments/assets/a463caf3-0c49-4776-b4ac-58816ef97c7b" />
-
+<img width="1331" alt="image" src="https://github.com/user-attachments/assets/b5e8c523-ecee-469f-b9ab-2ca83b97cfbb" />
 
 **Lualine component to show your harpoon marks list with filenames and indexes.**
 
