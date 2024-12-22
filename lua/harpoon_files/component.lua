@@ -1,25 +1,28 @@
 local M = {}
 local harpoon = require 'harpoon'
 
-local options = {}
+M.options = {
+    max_length = 15,
+    icon = '',
+    show_icon = true,
+    show_index = true,
+    show_filename = true,
+    separator_left = ' ',
+    separator_right = ' ',
+}
 
 M.setup = function(opts)
-    options = opts
-end
-
-M.get_options = function()
-    return options
+    M.options = vim.tbl_deep_extend('force', M.options, opts or {})
 end
 
 M.harpoon_files = function()
     local current_file = vim.fn.expand '%:p'
-    local opts = M.get_options()
 
     local result = {}
     for id, item in ipairs(harpoon:list().items) do
         local file_path = vim.fn.fnamemodify(item.value, ':p')
         local shortened =
-            vim.fn.fnamemodify(file_path, ':t'):sub(1, opts.max_length) -- Shorten filename
+            vim.fn.fnamemodify(file_path, ':t'):sub(1, M.options.max_length) -- Shorten filename
 
         -- TODO: add highlight customization support
         -- if file_path == current_file then
@@ -42,32 +45,46 @@ M.harpoon_files = function()
         --     )
         -- end
         local id_str = ''
-        if opts.show_index then
-            id_str = string.format('%d ', id)
+        if M.options.show_index then
+            id_str = string.format('%d', id)
+        end
+
+        local fname = ''
+        if M.options.show_filename then
+            if M.options.show_icon or M.options.show_index then
+                fname = string.format(' %s', shortened)
+            else
+                fname = string.format('%s', shortened)
+            end
+        end
+
+        local icon_str = ''
+        if M.options.show_icon then
+            icon_str = string.format('%s ', M.options.icon)
         end
 
         if file_path == current_file then
             table.insert(
                 result,
                 string.format(
-                    '%s[%s %s%s]%s',
-                    opts.separator_left,
-                    opts.icon,
+                    '%s[%s%s%s]%s',
+                    M.options.separator_left,
+                    icon_str,
                     id_str,
-                    shortened,
-                    opts.separator_right
+                    fname,
+                    M.options.separator_right
                 )
             )
         else
             table.insert(
                 result,
                 string.format(
-                    '%s %s %s%s %s',
-                    opts.separator_left,
-                    opts.icon,
+                    '%s %s%s%s %s',
+                    M.options.separator_left,
+                    icon_str,
                     id_str,
-                    shortened,
-                    opts.separator_right
+                    fname,
+                    M.options.separator_right
                 )
             )
         end

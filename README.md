@@ -65,10 +65,12 @@ Available options with their defaults:
     opts = {
         max_length = 15,
         icon = '',
+        show_icon = true,
         show_index = true,
+        show_filename = true,
         separator_left = ' ',
-        separator_right = ' ',
-    },
+        separator_right = ' '
+    }
 }
 
 ```
