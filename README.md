@@ -70,6 +70,7 @@ Available options with their defaults:
         show_filename = true,
         separator_left = ' ',
         separator_right = ' '
+        reverse_order = false,
     }
 }
 

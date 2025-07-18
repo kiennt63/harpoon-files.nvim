@@ -9,6 +9,7 @@ M.options = {
     show_filename = true,
     separator_left = ' ',
     separator_right = ' ',
+    reverse_order = false,
 }
 
 M.setup = function(opts)
@@ -63,9 +64,15 @@ M.harpoon_files = function()
             icon_str = string.format('%s ', M.options.icon)
         end
 
+        local insert_pos = #result + 1
+        if M.options.reverse_order then
+            insert_pos = 1
+        end
+
         if file_path == current_file then
             table.insert(
                 result,
+                insert_pos,
                 string.format(
                     '%s[%s%s%s]%s',
                     M.options.separator_left,
@@ -78,6 +85,7 @@ M.harpoon_files = function()
         else
             table.insert(
                 result,
+                insert_pos,
                 string.format(
                     '%s %s%s%s %s',
                     M.options.separator_left,
